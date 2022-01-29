@@ -41,7 +41,7 @@ class LogWriter extends Thread{
         while ($this->buffer->count() > 0) {
             /** @var string $line */
             $line = $this->buffer->pop();
-            fwrite($stream, $line . "\n");
+            fwrite($stream, $line);
         }
     }
 
