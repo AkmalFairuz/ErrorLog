@@ -1,0 +1,8 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/AkmalFairuz/ErrorLog
+build-by-default: true
+branches:
+- master
+projects:
+  ErrorLog:
+    path: ""
+...
