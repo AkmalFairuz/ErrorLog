@@ -13,7 +13,7 @@ class ErrorLog extends PluginBase{
 
     public function onEnable(): void{
         $this->writer = new LogWriter(Server::getInstance()->getDataPath() . "error.log");
-        $this->getLogger()->addAttachment(new LogAttachment($this->writer));
+        $this->getLogger()->addAttachment($this->writer);
     }
 
     public function onDisable(): void{
