@@ -6,6 +6,8 @@ namespace AkmalFairuz\ErrorLog;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
+use function usleep;
+use const PTHREADS_INHERIT_NONE;
 
 class ErrorLog extends PluginBase{
 
@@ -13,6 +15,10 @@ class ErrorLog extends PluginBase{
 
     public function onEnable(): void{
         $this->writer = new LogWriter(Server::getInstance()->getDataPath() . "error.log");
+        $this->writer->start(PTHREADS_INHERIT_NONE);
+        while(!$this->writer->running) {
+            usleep(1000);
+        }
         Server::getInstance()->getLogger()->addAttachment(new LogAttachment($this->writer));
     }
 

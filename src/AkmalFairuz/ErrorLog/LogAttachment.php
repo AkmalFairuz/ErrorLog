@@ -14,8 +14,14 @@ class LogAttachment extends \ThreadedLoggerAttachment{
     }
 
     public function log($level, $message){
-        if($level >= \LogLevel::WARNING) {
-            $this->writer->write(date("Y-m-d") . " " . TextFormat::clean($message) . PHP_EOL);
+        switch($level) {
+            case \LogLevel::WARNING:
+            case \LogLevel::ERROR:
+            case \LogLevel::ALERT:
+            case \LogLevel::CRITICAL:
+            case \LogLevel::EMERGENCY:
+                $this->writer->write(date("Y-m-d") . " " . TextFormat::clean($message) . PHP_EOL);
+                break;
         }
     }
 }

@@ -12,19 +12,15 @@ class LogWriter extends Thread{
 
     private string $log;
     private Threaded $buffer;
-    private bool $running = false;
+    public bool $running = false;
 
     public function __construct(string $log) {
         $this->log = $log;
         $this->buffer = new Threaded();
     }
 
-    public function start(int $options = PTHREADS_INHERIT_ALL): bool {
-        $this->running = true;
-        return parent::start($options);
-    }
-
     public function onRun(): void {
+        $this->running = true;
         $stream = fopen($this->log, 'ab');
         if (!is_resource($stream)) {
             throw new AssumptionFailedError("Open File $this->log failed");
