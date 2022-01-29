@@ -1,0 +1,5 @@
+name: ErrorLog
+main: AkmalFairuz\ErrorLog\ErrorLog
+version: 1.0
+api: 4.0.0
+author: AkmalFairuz
