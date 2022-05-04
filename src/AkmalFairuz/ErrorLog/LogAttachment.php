@@ -10,7 +10,9 @@ use const PHP_EOL;
 
 class LogAttachment extends \ThreadedLoggerAttachment{
 
-    public function __construct(private LogWriter $writer) {
+    public function __construct(
+        private LogWriter $writer
+    ) {
     }
 
     public function log($level, $message){

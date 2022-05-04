@@ -1,0 +1,11 @@
+log_file:
+  enabled: true
+  path: error.log # /your/server/folder/error.log
+discord:
+  enabled: false
+  # To get the webhook url:
+  # Right-click the channel -> Edit Channel
+  # -> Integrations -> Webhooks -> New Webhook
+  # -> Copy Webhook URL
+  # (the webhook url should be like this: https://discord.com/api/webhooks/??/??)
+  webhook: ""
