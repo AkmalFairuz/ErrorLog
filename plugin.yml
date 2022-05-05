@@ -1,6 +1,6 @@
 name: ErrorLog
 main: AkmalFairuz\ErrorLog\ErrorLog
-version: 1.1.0
+version: 1.2.0
 api: 4.0.0
 author: AkmalFairuz
 load: STARTUP
