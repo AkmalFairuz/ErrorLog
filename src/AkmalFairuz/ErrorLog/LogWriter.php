@@ -7,7 +7,9 @@ namespace AkmalFairuz\ErrorLog;
 use pocketmine\thread\Thread;
 use pocketmine\utils\AssumptionFailedError;
 use pocketmine\utils\Internet;
+use pocketmine\utils\InternetException;
 use Threaded;
+use Throwable;
 use function date;
 use function fwrite;
 use function json_encode;
@@ -16,6 +18,7 @@ use function str_replace;
 use function strlen;
 use function substr;
 use const CURLOPT_POSTFIELDS;
+use const PHP_EOL;
 
 class LogWriter extends Thread{
 
@@ -68,25 +71,29 @@ class LogWriter extends Thread{
             if(strlen(trim($lines)) === 0) { // don't send blank log
                 return;
             }
-            Internet::simpleCurl(
-                $webhook,
-                5,
-                [
-                    "Content-Type: application/json"
-                ],
-                [
-                    CURLOPT_POSTFIELDS => json_encode([
-                        "username" => "ErrorLog",
-                        "embeds" => [
-                            [
-                                "color" => 16711680, // RED,
-                                "description" => "```php\n" . str_replace("`", "\`", substr($lines, 0, min(strlen($lines), 1500))) . "\n```",
-                                "timestamp" => date("Y-m-d")."T".date("H:i:s").".".date("v")."Z"
+            try{
+                Internet::simpleCurl(
+                    $webhook,
+                    5,
+                    [
+                        "Content-Type: application/json"
+                    ],
+                    [
+                        CURLOPT_POSTFIELDS => json_encode([
+                            "username" => "ErrorLog",
+                            "embeds" => [
+                                [
+                                    "color" => 16711680, // RED,
+                                    "description" => "```php\n" . str_replace("`", "\`", substr($lines, 0, min(strlen($lines), 1500))) . "\n```",
+                                    "timestamp" => date("Y-m-d")."T".date("H:i:s").".".date("v")."Z"
+                                ]
                             ]
-                        ]
-                    ])
-                ]
-            );
+                        ])
+                    ]
+                );
+            }catch(InternetException $exception) {
+                echo $exception->__toString() . PHP_EOL; // Discord API Error
+            }
         }
     }
 
